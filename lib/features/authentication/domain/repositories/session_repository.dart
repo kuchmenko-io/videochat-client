@@ -5,4 +5,5 @@ import 'package:videochat_client/features/authentication/domain/entities/session
 abstract class SessionRepository {
   Future<Either<Failure, SessionEntity>> signIn();
   Future<Either<Failure, SessionEntity>> restoreSession();
+  Future<Either<Failure, void>> logout();
 }

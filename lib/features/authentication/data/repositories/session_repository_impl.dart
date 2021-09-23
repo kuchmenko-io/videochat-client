@@ -41,4 +41,13 @@ class SessionRepositoryImpl extends SessionRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> logout() async {
+    try {
+      return Right(await localDatasource.clearSession());
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
 }

@@ -16,36 +16,22 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SessionCubit, SessionState>(
-      builder: (BuildContext context, SessionState state) {
-        Widget widget = _signInForm();
-        if (state is SessionStateLoading) {
-          widget = _loadingIndicator();
-        } else if (state is SessionStateLoaded) {
+    return BlocListener<SessionCubit, SessionState>(
+      listener: (BuildContext context, SessionState state) {
+        if (state is SessionStateLoaded) {
           // print(state.session.idToken.nickname);
           Navigator.of(context).pushNamed(redirectAfterSignIn);
         }
-
-        print(state);
-        print(state.runtimeType);
-
-        return Scaffold(
-          body: SafeArea(
-            child: Container(
-              child: Center(
-                child: widget,
-              ),
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Container(
+            child: Center(
+              child: _signInForm(),
             ),
           ),
-        );
-      },
-    );
-  }
-
-  Widget _loadingIndicator() {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 

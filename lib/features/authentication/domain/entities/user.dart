@@ -32,4 +32,8 @@ class UserEntity extends Equatable {
         lastName,
         fullName,
       ];
+
+  String getUsername() {
+    return '@$username';
+  }
 }

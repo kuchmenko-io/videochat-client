@@ -14,15 +14,18 @@ import 'package:videochat_client/features/authentication/domain/use_cases/sign_i
 import 'package:videochat_client/features/authentication/presentation/bloc/restore_session_bloc/restore_session_bloc.dart';
 import 'package:videochat_client/features/authentication/presentation/bloc/session_cubit/session_cubit.dart';
 
+import 'features/authentication/domain/use_cases/logout_use_case.dart';
+
 final sl = GetIt.instance;
 
 init() {
   // BLoC / Cubit
   sl.registerFactory(() => RestoreSessionBloc(restoreSession: sl()));
-  sl.registerFactory(
+  sl.registerLazySingleton(
     () => SessionCubit(
       restoreSessionUseCase: sl(),
       signInUseCase: sl(),
+      logoutUseCase: sl(),
     ),
   );
 
@@ -37,6 +40,11 @@ init() {
     () => SignInUseCase(
       authenticationRepository: sl(),
       usersRepository: sl(),
+    ),
+  );
+  sl.registerLazySingleton(
+    () => LogoutUseCase(
+      authenticationRepository: sl(),
     ),
   );
 

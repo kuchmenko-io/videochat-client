@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:videochat_client/core/pages/splash_screen_page.dart';
 import 'package:videochat_client/features/authentication/presentation/bloc/restore_session_bloc/restore_session_bloc.dart';
 import 'package:videochat_client/features/authentication/presentation/bloc/session_cubit/session_cubit.dart';
 import 'package:videochat_client/features/authentication/presentation/pages/sign_in_page.dart';
 import 'package:videochat_client/features/users/presentation/pages/user_profile_page.dart';
 import 'package:videochat_client/locator_service.dart' as di;
 import 'package:videochat_client/locator_service.dart';
+
+import 'core/widgets/protected_layout_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +37,7 @@ class MainApplication extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(),
-        initialRoute: SignInPage.route,
+        initialRoute: SplashScreenPage.route,
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case SignInPage.route:
@@ -45,7 +48,17 @@ class MainApplication extends StatelessWidget {
               );
             case UserProfilePage.route:
               return MaterialPageRoute(
-                builder: (context) => UserProfilePage(),
+                builder: (context) => ProtectedLayoutWrapper(
+                  redirectTo: SignInPage.route,
+                  child: UserProfilePage(),
+                ),
+              );
+            default:
+              return MaterialPageRoute(
+                builder: (context) => SplashScreenPage(
+                  redirectOnSuccessUrl: UserProfilePage.route,
+                  redirectOnErrorUrl: SignInPage.route,
+                ),
               );
           }
         },
