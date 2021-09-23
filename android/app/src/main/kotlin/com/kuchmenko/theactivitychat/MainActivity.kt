@@ -1,4 +1,4 @@
-package com.kuchmenko.videochat_client
+package com.kuchmenko.theactivitychat
 
 import io.flutter.embedding.android.FlutterActivity
 

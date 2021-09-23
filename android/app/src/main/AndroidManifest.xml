@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kuchmenko.videochat_client">
+    package="com.kuchmenko.theactivitychat">
    <application
         android:label="videochat_client"
         android:icon="@mipmap/ic_launcher">
