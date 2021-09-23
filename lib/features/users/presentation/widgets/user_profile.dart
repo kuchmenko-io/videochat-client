@@ -21,6 +21,7 @@ class UserProfile extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 8),
               child: ProfileAvatar(
                 avatar: user.image,
+                name: '${user.firstName[0]}${user.lastName[0]}'.toUpperCase(),
               ),
             ),
             Padding(

@@ -7,24 +7,35 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:videochat_client/main.dart';
+import 'package:videochat_client/features/authentication/domain/entities/user.dart';
+import 'package:videochat_client/features/users/presentation/widgets/user_profile.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MainApplication());
+    final user = UserEntity(
+      id: "123",
+      username: "ivan_test",
+      phoneNumber: null,
+      email: "ivan@kuchmenko.com",
+      image: null,
+      firstName: "Ivan",
+      lastName: "Kuchmenko",
+      fullName: "Ivan Kuchmenko",
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Container(
+            child: UserProfile(
+              user: user,
+            ),
+          ),
+        ),
+      ),
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text(user.fullName), findsOneWidget);
+    expect(find.text(user.getUsername()), findsOneWidget);
   });
 }

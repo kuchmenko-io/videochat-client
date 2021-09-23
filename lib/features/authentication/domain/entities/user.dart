@@ -5,7 +5,7 @@ class UserEntity extends Equatable {
   final String? email;
   final String username;
   final String? phoneNumber;
-  final String image;
+  final String? image;
   final String firstName;
   final String lastName;
   final String fullName;
@@ -14,8 +14,8 @@ class UserEntity extends Equatable {
     required this.id,
     required this.email,
     required this.username,
-    required this.phoneNumber,
-    required this.image,
+    this.phoneNumber = "",
+    this.image = "",
     required this.firstName,
     required this.lastName,
     required this.fullName,
